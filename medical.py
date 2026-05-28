@@ -7,60 +7,60 @@ from sklearn.metrics import r2_score
 data = pd.read_csv('insurance.csv')
 
 
-# print(data.head(5))
+print(data.head(5))
 
-# # visulization
-# sns.scatterplot(x=data["bmi"], y=data["charges"],hue=data["smoker"])
+# visulization
+sns.scatterplot(x=data["bmi"], y=data["charges"],hue=data["smoker"])
 
-# plt.show()
+plt.show()
 
-# x=data.drop(columns=['charges','region'])
-# x=data.drop(columns=['charges'])
-# y=data['charges']
+x=data.drop(columns=['charges','region'])
+x=data.drop(columns=['charges'])
+y=data['charges']
 
-# x['sex']=x['sex'].map({'male':0,'female':1})
-# x['smoker']=x['smoker'].map({'yes':0,'no':1})
+x['sex']=x['sex'].map({'male':0,'female':1})
+x['smoker']=x['smoker'].map({'yes':0,'no':1})
 
-# x=pd.get_dummies(x['region'],drop_first=True ,dtype=int)
+x=pd.get_dummies(x['region'],drop_first=True ,dtype=int)
 
 
 # print(x.head(5))
 
-# print(x.head(5))
-# # print(y.head(5))
-
-# x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2,random_state=42)
-# model = LinearRegression()
-# model.fit(x_train,y_train)
-
-# print(x_train.head(5))
-# y_pred = model.predict(x_test)
-# print(y_pred)
-# print(y_test)
-# r_squared = r2_score(y_test, y_pred)
-# print("R-squared:", r_squared)
-# n=x_test.shape[0]
-# p=x_test.shape[1]
-# adjusted_r_squared = 1 - (1 - r_squared) * (n - 1) / (n - p - 1)
-# print("Adjusted R-squared:", adjusted_r_squared)
+print(x.head(5))
 
 
+x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2,random_state=42)
+model = LinearRegression()
+model.fit(x_train,y_train)
 
-# x=data.drop(columns=['charges'])
-# y=data['charges']
+print(x_train.head(5))
+y_pred = model.predict(x_test)
+print(y_pred)
+print(y_test)
+r_squared = r2_score(y_test, y_pred)
+print("R-squared:", r_squared)
+n=x_test.shape[0]
+p=x_test.shape[1]
+adjusted_r_squared = 1 - (1 - r_squared) * (n - 1) / (n - p - 1)
+print("Adjusted R-squared:", adjusted_r_squared)
 
-# x =pd.get_dummies(columns=['region'],data=x,drop_first=False,dtype=int)
 
-# x['sex']=x['sex'].map({'male':0,'female':1})
-# x['smoker']=x['smoker'].map({'yes':0,'no':1})
 
-# x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2,random_state=42)
+x=data.drop(columns=['charges'])
+y=data['charges']
 
-# model = LinearRegression()
-# model.fit(x_train,y_train)
+x =pd.get_dummies(columns=['region'],data=x,drop_first=False,dtype=int)
 
-# y_pred = model.predict(x_test)
-# # print(y_pred)
+x['sex']=x['sex'].map({'male':0,'female':1})
+x['smoker']=x['smoker'].map({'yes':0,'no':1})
+
+x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2,random_state=42)
+
+model = LinearRegression()
+model.fit(x_train,y_train)
+
+y_pred = model.predict(x_test)
+print(y_pred)
 
 
 
@@ -75,7 +75,7 @@ x['sex']=x['sex'].map({'male':0,'female':1})
 x['smoker']=x['smoker'].map({'yes':0,'no':1})
 x['agr_smoker']=x['age']*x['smoker']
 x['bmi_smoker']=x['bmi']*x['smoker']
-# x['bmi_smoker']=x['age']*x['smoker']
+x['bmi_smoker']=x['age']*x['smoker']
 x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2,random_state=42)
 
 
@@ -85,14 +85,14 @@ print(x.head(5))
 model = LinearRegression()
 model.fit(x_train,y_train)
 
-# y_pred = model.predict(x_test)
+y_pred = model.predict(x_test)
 
-# r_squared = r2_score(y_test, y_pred)
-# print("R-squared:", r_squared)
-# n=x_test.shape[0]
-# p=x_test.shape[1]
-# adjusted_r_squared = 1 - (1 - r_squared) * (n - 1) / (n - p - 1)
-# print("Adjusted R-squared:", adjusted_r_squared)
+r_squared = r2_score(y_test, y_pred)
+print("R-squared:", r_squared)
+n=x_test.shape[0]
+p=x_test.shape[1]
+adjusted_r_squared = 1 - (1 - r_squared) * (n - 1) / (n - p - 1)
+print("Adjusted R-squared:", adjusted_r_squared)
 
 
 
