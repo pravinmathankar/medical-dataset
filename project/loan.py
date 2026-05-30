@@ -20,12 +20,14 @@ from sklearn.naive_bayes import GaussianNB
 data=pd.read_csv('project/loan_approval_data (2).csv')
 # print(data.head())
 # print(data.isnull().sum())
+# print(data.info())
+# print(data.describe())
 
 # that is used to devise the categorical and n umerical value are columns
 catorical_cols=data.select_dtypes(include =['object']).columns
 numerical_cols=data.select_dtypes(include =['float64','int64']).columns
-# print(catorical_cols)
-# print(numerical_cols)
+# print("that is catogorical columns",catorical_cols)
+# print("that is numerical columns",numerical_cols)
 
 # that is used to fill the null value in categorical and numerical columns
 # imputer
@@ -43,7 +45,7 @@ data[catorical_cols]=cat_imputer.fit_transform(data[catorical_cols])
 # that is used to visualize the data and analyze the data
 
 # classes_count=data['Loan_Approved'].value_counts()
-# plt.pie(classes_count, labels=['no','yes'], autopct='%1.1f%%')
+# plt.pie(classes_count,labels=['no','yes',], autopct='%1.1f%%')
 # plt.title('Is Loan Approved or Not')
 # plt.show()
 
@@ -134,7 +136,7 @@ le = LabelEncoder()
 data["Education_Level"] = le.fit_transform(data["Education_Level"])
 data["Loan_Approved"] = le.fit_transform(data["Loan_Approved"])
 
-# print(data.head())
+# # print(data.head())
 cols = ["Employment_Status", "Marital_Status", "Loan_Purpose", "Property_Area", "Gender", "Employer_Category"]
 ohe = OneHotEncoder(drop="first", sparse_output=False, handle_unknown="ignore")
 encoded = ohe.fit_transform(data[cols])
@@ -150,15 +152,15 @@ corelation_matrix=data[nums].corr()
 
 
 
-sns.heatmap(corelation_matrix, annot=True, cmap='coolwarm',fmt='.2f')
-plt.title('Correlation Matrix')
-# plt.show()
+# sns.heatmap(corelation_matrix, annot=True, cmap='coolwarm',fmt='.2f')
+# plt.title('Correlation Matrix')
+# # plt.show()
 
 
 x=data.drop(columns=['Loan_Approved'])
 y=data['Loan_Approved']
 
-x_train,x_test,y_train,y_test=train_test_split(data.drop(columns=['Loan_Approved']),data['Loan_Approved'],test_size=0.2,random_state=42)
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
 
 scaler=StandardScaler()
 x_train_scaled=scaler.fit_transform(x_train)
@@ -168,18 +170,20 @@ x_test_scaled=scaler.transform(x_test)
 # print(x_train_scaled)
 # print(x_test_scaled)
 
-# logreg=LogisticRegression()
-# logreg.fit(x_train_scaled,y_train)
 
-# logreg_pred=logreg.predict(x_test_scaled)
 
-# print("Classification Report:\n", classification_report(y_test, logreg_pred))
-# print("Confusion Matrix:\n", confusion_matrix(y_test, logreg_pred))
-# print("Accuracy Score:", accuracy_score(y_test, logreg_pred))
-# print("Accuracy Score:", accuracy_score(y_test, logreg_pred))
-# print("Precision Score:", precision_score(y_test, logreg_pred))
-# print("Recall Score:", recall_score(y_test, logreg_pred))
-# print("F1 Score:", f1_score(y_test, logreg_pred))
+logistic_model=LogisticRegression()
+logistic_model.fit(x_train_scaled,y_train)
+
+logreg_pred=logistic_model.predict(x_test_scaled)
+
+print("Classification Report:\n", classification_report(y_test, logreg_pred))
+print("Confusion Matrix:\n", confusion_matrix(y_test, logreg_pred))
+print("Accuracy Score:", accuracy_score(y_test, logreg_pred))
+print("Accuracy Score:", accuracy_score(y_test, logreg_pred))
+print("Precision Score:", precision_score(y_test, logreg_pred))
+print("Recall Score:", recall_score(y_test, logreg_pred))
+print("F1 Score:", f1_score(y_test, logreg_pred))
 
 
 
@@ -202,20 +206,17 @@ x_test_scaled=scaler.transform(x_test)
 
 # that is navi byes algorithm
 
-nb=GaussianNB()
-nb.fit(x_train_scaled,y_train)
-y_pred=nb.predict(x_test_scaled)
+# nb=GaussianNB()
+# nb.fit(x_train_scaled,y_train)
+# y_pred=nb.predict(x_test_scaled)
 
 
-print("Classification Report:\n", classification_report(y_test, y_pred))
-print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
-print("Accuracy Score:", accuracy_score(y_test, y_pred))
-print("Precision Score:", precision_score(y_test, y_pred))
-print("Recall Score:", recall_score(y_test, y_pred))
-print("F1 Score:", f1_score(y_test, y_pred))
-
-
-
+# print("Classification Report:\n", classification_report(y_test, y_pred))
+# print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+# print("Accuracy Score:", accuracy_score(y_test, y_pred))
+# print("Precision Score:", precision_score(y_test, y_pred))
+# print("Recall Score:", recall_score(y_test, y_pred))
+# print("F1 Score:", f1_score(y_test, y_pred))
 
 
 
@@ -223,9 +224,12 @@ print("F1 Score:", f1_score(y_test, y_pred))
 
 
 
-data['DTI_Ratio_sq'] = data['DTI_Ratio']**2
-data['Credit_score'] = data['Credit_Score']**2
 
-data['Application_Income_log'] = np.log1p(data['Applicant_Income'])
-x=data.drop(columns=['Loan_Approved','DTI_Ratio','Credit_Score','Applicant_Income'])
-y=data['Loan_Approved']
+
+
+# data['DTI_Ratio_sq'] = data['DTI_Ratio']**2
+# data['Credit_score'] = data['Credit_Score']**2
+
+# data['Application_Income_log'] = np.log1p(data['Applicant_Income'])
+# x=data.drop(columns=['Loan_Approved','DTI_Ratio','Credit_Score','Applicant_Income'])
+# y=data['Loan_Approved']

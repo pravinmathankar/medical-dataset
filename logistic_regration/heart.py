@@ -5,20 +5,23 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 from sklearn.preprocessing import StandardScaler
 data=pd.read_csv('logistic_regration/1-heart.csv')
 # print(data.head())
+# print(data.columns)
+# print(data.info())
+# print(data.isnull().sum())?
 # print(data.isnull().sum())
 
 x=data.drop('target',axis=1)
 y=data['target']
 
-# print(x.head())
-# print(y.head())
+# # print(x.head())
+# # print(y.head())
 
 x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
 model=LogisticRegression(max_iter=1000)
 scaler=StandardScaler()
-# x_train=scaler.fit_transform(x_train)
-# x_test=scaler.transform(x_test)
-# scaler.fit(x_train,y_train)
+x_train=scaler.fit_transform(x_train)
+x_test=scaler.transform(x_test)
+scaler.fit(x_train,y_train)
 # y_pred=model.predict(x_test)
 model.fit(x_train,y_train)
 # y_pred=model.predict(x_test)
@@ -46,8 +49,8 @@ print("Recall:",recall_score(y_test,y_pred))
 
 
 
-# y=y_train[y_train==1]
-# print(y)
-# y=y_train[y_train==0]
-# print(y)
+# # y=y_train[y_train==1]
+# # print(y)
+# # y=y_train[y_train==0]
+# # print(y)
 
